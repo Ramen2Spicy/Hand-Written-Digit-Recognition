@@ -1,6 +1,6 @@
 This is a demo used for my Business IT Architecture class
 
-This application utilizes real images of hand-written digits to train a convolutional neural network to make accurate predictions of the images' labels using Python. 
+This application utilizes real images of hand-written digits to train a convolutional neural network to make accurate predictions of single digits contained in an image using Python. 
 
 Packages used: keras, matplotlib, numpy.
 
@@ -32,10 +32,17 @@ Again, our goal is to use a 3-dimensional data, location on x-axis, location to 
 
 The dense layer enforces a connection between each input and output, by which the ouyput is weighted. By useing an activation type "Softmax" in a dense layer, each output is normalized into a number between 0 to 1 in the corresponding idex of an array.
 
-Compiling
+
+COMPILING:
+
+Lastly, we need to compile the code by specifying the optimizer, loss, and metrics. We will be using the "ADAM" (Adaptive Movement Estimation) optimizer to optimize the gradient desent of the model. Read more about gradient desent here: https://towardsdatascience.com/understanding-the-mathematics-behind-gradient-descent-dde5dc9be06e. This process will help the nerual network to find the best adjustment for each weights and biases after processing every image. 
+
+The loss function is a method that describes the performance of the model. Because of the outputs of the nerual network are  uninterpreted and the nature of classification (predictions are either right or wrong), the loss function allows us to see how close the calcualtions that lead to the final decisions are. Note that this is different from accuracy since the loss function calculates how close the proccess of predictions are to the labels, insteand of calculating how close the end results are to the labels.
+
+The actuall accuracy is where we compare the end results to the label are specified by "metrics".
 
 
-FITTING THE MODEL
+FITTING THE MODEL:
 
 In the field of Machine Learning, fitting generally means to train. We have prepared the data into the correct format and set model configurations, it's time to feed the data to the model. We can do so by identifying the training data and validation data(optional), in this case, x_train, y_train, and x_test, y_test. During the fitting process, the model randomly generates weights and biases and compare its predicted result with the image label. Based on the accuracy, the model re-adjusts the weights and biases. Similar to conditioning human behaviors through a reinforce-punish system, if the predicted result was correct, the model will reward itself by adjusting the specific weights and biases that lead to the correct prediction more, and vice versa. This process enables the model to process a large amount of data to self-train with an aim to reach higher accuracy.
 
@@ -43,5 +50,5 @@ Epochs essentially determine how many times the model will go through the traini
 
 MAKING PREDICTIONS
 
-The Keras_predict method allows up to make prediction with the trained model. The predicted results, however, are still generated in the format of arrays. For example, in an array of [2.69685412e-08 6.92543023e-10 1.87893279e-09 9.99994040e-01
+The Keras_predict method allows us to make prediction with the trained model. The predicted results, however, are still generated in the format of arrays. For example, in an array of [2.69685412e-08 6.92543023e-10 1.87893279e-09 9.99994040e-01
   1.34154798e-09 1.40939324e-06 7.01640843e-15 3.29851944e-11. 4.28513931e-06 2.42023674e-07], each number in the index indicates the possibility that a "1" is located at the corresponding index. In another word, there is 9.99994040e-01 chance that there is a "1" located in the 4th index. Therefore the model predicts that there is a 9.99994040e-01 chance this image contains a "3". This format of result is still hard to read, however, we could use the numpy.argmax function to translate the result directly into the image label. 
